@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mobile Hub — Premium Tech Solutions, Palani</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --blue:#0066FF;
+  --blue-dim:rgba(0,102,255,0.12);
+  --blue-glow:rgba(0,102,255,0.25);
+  --bg:#03040A;
+  --surface:#0C0D17;
+  --surface2:#111224;
+  --border:rgba(255,255,255,0.07);
+  --border-hover:rgba(0,102,255,0.5);
+  --text:#F0F2FF;
+  --muted:#6B7094;
+  --muted2:#3E4160;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  font-weight:300;
+  overflow-x:hidden;
+  line-height:1.6;
+}
+
+/* ── CURSOR GLOW ── */
+.cursor-glow{
+  position:fixed;width:600px;height:600px;
+  background:radial-gradient(circle,rgba(0,102,255,0.07) 0%,transparent 65%);
+  border-radius:50%;pointer-events:none;z-index:0;
+  transform:translate(-50%,-50%);
+  transition:transform 0.15s ease;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;width:100%;z-index:100;
+  padding:24px 6%;
+  display:flex;justify-content:space-between;align-items:center;
+  border-bottom:1px solid transparent;
+  transition:all 0.4s;
+}
+nav.scrolled{
+  background:rgba(3,4,10,0.92);
+  backdrop-filter:blur(20px);
+  border-bottom-color:var(--border);
+  padding:16px 6%;
+}
+.logo{
+  font-family:'Syne',sans-serif;
+  font-size:20px;font-weight:800;
+  color:var(--text);text-decoration:none;
+  letter-spacing:-0.5px;
+  display:flex;align-items:center;gap:10px;
+}
+.logo-dot{
+  width:8px;height:8px;
+  background:var(--blue);border-radius:50%;
+  box-shadow:0 0 12px var(--blue);
+}
+.nav-cta{
+  background:var(--blue);color:#fff;
+  text-decoration:none;
+  padding:10px 22px;border-radius:8px;
+  font-size:14px;font-weight:500;
+  transition:all 0.3s;
+  letter-spacing:0.2px;
+}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px var(--blue-glow);}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  justify-content:center;align-items:center;
+  text-align:center;
+  padding:140px 6% 80px;
+  position:relative;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,102,255,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 80% 80%, rgba(0,40,180,0.08) 0%, transparent 50%);
+  pointer-events:none;
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size:80px 80px;
+  mask-image:radial-gradient(ellipse 80% 70% at 50% 0%, black 30%, transparent 70%);
+  pointer-events:none;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(0,102,255,0.08);
+  border:1px solid rgba(0,102,255,0.2);
+  padding:7px 18px;border-radius:100px;
+  font-size:12px;font-weight:500;letter-spacing:2px;
+  text-transform:uppercase;color:rgba(100,150,255,0.9);
+  margin-bottom:32px;
+  position:relative;
+}
+.eyebrow-dot{width:5px;height:5px;background:#0066FF;border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+
+.hero h1{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(44px,8vw,96px);
+  font-weight:800;
+  line-height:1.0;
+  letter-spacing:-3px;
+  margin-bottom:28px;
+  position:relative;
+}
+.h1-line1{
+  display:block;
+  color:var(--text);
+}
+.h1-line2{
+  display:block;
+  background:linear-gradient(90deg,#0066FF 0%,#66A3FF 50%,#0066FF 100%);
+  background-size:200% auto;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:shimmer 4s linear infinite;
+}
+@keyframes shimmer{0%{background-position:0% center}100%{background-position:200% center}}
+
+.hero-sub{
+  font-size:clamp(16px,2vw,19px);
+  color:var(--muted);font-weight:300;
+  max-width:520px;
+  margin-bottom:44px;
+  line-height:1.7;
+  position:relative;
+}
+.btn-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;}
+.btn{
+  padding:15px 30px;border-radius:10px;
+  font-size:15px;font-weight:500;
+  text-decoration:none;
+  display:inline-flex;align-items:center;gap:9px;
+  transition:all 0.35s;cursor:pointer;border:none;
+}
+.btn-blue{background:var(--blue);color:#fff;}
+.btn-blue:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,102,255,0.4);}
+.btn-ghost{
+  background:transparent;color:var(--text);
+  border:1px solid var(--border);
+}
+.btn-ghost:hover{background:var(--surface2);border-color:var(--border-hover);}
+
+/* ── STATS ── */
+.stats-row{
+  display:flex;gap:0;
+  margin:80px 6% 0;
+  border:1px solid var(--border);
+  border-radius:16px;
+  overflow:hidden;
+  background:var(--surface);
+  position:relative;z-index:1;
+}
+.stat{
+  flex:1;padding:32px 24px;
+  border-right:1px solid var(--border);
+  text-align:center;
+}
+.stat:last-child{border-right:none;}
+.stat-num{
+  font-family:'Syne',sans-serif;
+  font-size:36px;font-weight:800;
+  color:var(--text);letter-spacing:-1px;
+}
+.stat-num span{color:var(--blue);}
+.stat-label{font-size:13px;color:var(--muted);margin-top:4px;letter-spacing:0.3px;}
+
+/* ── SECTION ── */
+.section{padding:120px 6%;position:relative;}
+.section-label{
+  font-size:11px;font-weight:500;letter-spacing:3px;
+  text-transform:uppercase;color:var(--blue);
+  margin-bottom:16px;
+}
+.section-title{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(32px,5vw,52px);
+  font-weight:800;letter-spacing:-2px;
+  line-height:1.05;
+  color:var(--text);
+}
+.section-title .dim{color:var(--muted2);}
+
+/* ── SERVICES ── */
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  background:var(--border);
+  border-radius:20px;overflow:hidden;
+  margin-top:60px;
+}
+.service-card{
+  background:var(--surface);
+  padding:52px 44px;
+  position:relative;overflow:hidden;
+  transition:background 0.3s;
+}
+.service-card:hover{background:var(--surface2);}
+.service-card::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--blue),transparent);
+  opacity:0;transition:opacity 0.3s;
+}
+.service-card:hover::before{opacity:1;}
+.service-number{
+  font-family:'Syne',sans-serif;
+  font-size:13px;font-weight:700;
+  color:var(--muted2);letter-spacing:2px;
+  margin-bottom:36px;
+}
+.service-icon{
+  width:52px;height:52px;
+  background:var(--blue-dim);
+  border:1px solid rgba(0,102,255,0.2);
+  border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;margin-bottom:28px;
+}
+.service-name{
+  font-family:'Syne',sans-serif;
+  font-size:22px;font-weight:700;
+  margin-bottom:14px;letter-spacing:-0.5px;
+}
+.service-desc{font-size:15px;color:var(--muted);line-height:1.75;}
+
+/* ── WHY US ── */
+.why-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+  margin-top:60px;
+}
+.why-item{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:36px;
+  display:flex;gap:20px;align-items:flex-start;
+  transition:border-color 0.3s,background 0.3s;
+}
+.why-item:hover{border-color:var(--border-hover);background:var(--surface2);}
+.why-check{
+  width:36px;height:36px;flex-shrink:0;
+  background:var(--blue-dim);
+  border:1px solid rgba(0,102,255,0.25);
+  border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--blue);font-size:16px;
+}
+.why-text h4{font-size:16px;font-weight:500;margin-bottom:6px;}
+.why-text p{font-size:14px;color:var(--muted);line-height:1.7;}
+
+/* ── CONTACT ── */
+.contact-wrap{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:28px;
+  padding:0;overflow:hidden;
+  margin-top:60px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+}
+.contact-left{
+  padding:64px 60px;
+  border-right:1px solid var(--border);
+}
+.contact-right{padding:64px 60px;}
+
+.contact-title{
+  font-family:'Syne',sans-serif;
+  font-size:38px;font-weight:800;
+  letter-spacing:-1.5px;margin-bottom:12px;
+}
+.contact-sub{font-size:15px;color:var(--muted);margin-bottom:52px;line-height:1.7;}
+
+.contact-person{
+  display:flex;align-items:center;gap:16px;
+  margin-bottom:32px;padding-bottom:32px;
+  border-bottom:1px solid var(--border);
+}
+.contact-person:last-of-type{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.person-avatar{
+  width:52px;height:52px;border-radius:14px;
+  background:var(--blue-dim);
+  border:1px solid rgba(0,102,255,0.2);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:16px;color:var(--blue);flex-shrink:0;
+}
+.person-role{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:4px;}
+.person-name{font-size:15px;font-weight:500;margin-bottom:2px;}
+.person-num{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;letter-spacing:-0.5px;}
+
+.visit-label{
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:20px;
+}
+.visit-address{
+  font-size:17px;line-height:2;color:var(--text);
+  margin-bottom:36px;font-weight:300;
+}
+.visit-address strong{font-weight:500;}
+
+.map-btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:16px;border-radius:12px;
+  background:var(--surface2);
+  border:1px solid var(--border);
+  color:var(--text);text-decoration:none;font-size:14px;
+  transition:all 0.3s;margin-bottom:16px;
+}
+.map-btn:hover{border-color:var(--border-hover);background:rgba(0,102,255,0.06);}
+.ig-btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:16px;border-radius:12px;
+  background:linear-gradient(135deg,rgba(131,58,180,0.12),rgba(253,29,29,0.08),rgba(252,176,69,0.08));
+  border:1px solid rgba(131,58,180,0.2);
+  color:var(--text);text-decoration:none;font-size:14px;
+  transition:all 0.3s;
+}
+.ig-btn:hover{opacity:0.85;}
+
+/* ── FOOTER ── */
+footer{
+  padding:48px 6%;
+  border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:16px;
+}
+.footer-logo{
+  font-family:'Syne',sans-serif;
+  font-size:16px;font-weight:800;color:var(--text);
+}
+.footer-copy{font-size:13px;color:var(--muted);}
+.footer-links{display:flex;gap:24px;}
+.footer-links a{font-size:13px;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+.footer-links a:hover{color:var(--text);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .services-grid{grid-template-columns:1fr;}
+  .why-grid{grid-template-columns:1fr;}
+  .contact-wrap{grid-template-columns:1fr;}
+  .contact-left{border-right:none;border-bottom:1px solid var(--border);padding:44px 32px;}
+  .contact-right{padding:44px 32px;}
+  .stats-row{flex-wrap:wrap;}
+  .stat{border-right:none;border-bottom:1px solid var(--border);}
+  .stat:last-child{border-bottom:none;}
+  footer{flex-direction:column;text-align:center;}
+}
+@media(max-width:600px){
+  nav{padding:18px 5%;}
+  .hero{padding:120px 5% 60px;}
+  .section{padding:80px 5%;}
+  .stats-row{margin:60px 5% 0;}
+  .contact-left,.contact-right{padding:36px 24px;}
+  .contact-title{font-size:28px;}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor-glow" id="glow"></div>
+
+<nav id="nav">
+  <a href="#" class="logo">
+    <span class="logo-dot"></span>
+    MOBILEHUB
+  </a>
+  <a href="tel:9080488323" class="nav-cta">Call Now</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-eyebrow">
+    <span class="eyebrow-dot"></span>
+    Palani's Premier Tech Destination
+  </div>
+
+  <h1>
+    <span class="h1-line1">Repairs Done</span>
+    <span class="h1-line2">Right. Always.</span>
+  </h1>
+
+  <p class="hero-sub">Expert mobile repairs, premium devices, and certified exchange — all under one roof in the heart of Palani.</p>
+
+  <div class="btn-row">
+    <a href="https://wa.me/919080488323" class="btn btn-blue">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp Us
+    </a>
+    <a href="#services" class="btn btn-ghost">View Services</a>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-row">
+  <div class="stat">
+    <div class="stat-num">500<span>+</span></div>
+    <div class="stat-label">Devices Repaired</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">All<span> Brands</span></div>
+    <div class="stat-label">Supported</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">Same<span>-Day</span></div>
+    <div class="stat-label">Repair Available</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">100<span>%</span></div>
+    <div class="stat-label">Genuine Parts</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <p class="section-label">What We Do</p>
+  <h2 class="section-title">Full-Spectrum <span class="dim">Solutions</span></h2>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-number">01</div>
+      <div class="service-icon">🔧</div>
+      <div class="service-name">Precision Repair</div>
+      <p class="service-desc">Chip-level diagnostics, original screen replacements, battery swaps, and water damage recovery across all major smartphone brands.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-number">02</div>
+      <div class="service-icon">📱</div>
+      <div class="service-name">Premium Sales</div>
+      <p class="service-desc">Latest flagship and mid-range devices with genuine accessories, full manufacturer warranty, and post-sale support.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-number">03</div>
+      <div class="service-icon">♻️</div>
+      <div class="service-name">Smart Exchange</div>
+      <p class="service-desc">Get maximum resale value for your old phone. Transparent valuation, instant payment, and hassle-free upgrade process.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="section" style="padding-top:0;">
+  <p class="section-label">Why Choose Us</p>
+  <h2 class="section-title">Built on <span class="dim">Trust</span></h2>
+
+  <div class="why-grid">
+    <div class="why-item">
+      <div class="why-check">✓</div>
+      <div class="why-text">
+        <h4>Genuine Spare Parts</h4>
+        <p>We source only OEM-grade components. No local copies, no compromises — ever.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-check">✓</div>
+      <div class="why-text">
+        <h4>Transparent Pricing</h4>
+        <p>Fixed quotes before we start. What we quote is what you pay — no surprises.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-check">✓</div>
+      <div class="why-text">
+        <h4>Fast Turnaround</h4>
+        <p>Most repairs completed same day. We know your phone is your lifeline.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-check">✓</div>
+      <div class="why-text">
+        <h4>Expert Technicians</h4>
+        <p>Experienced hands on every device. Every repair backed by our quality guarantee.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact" style="padding-top:0;">
+  <p class="section-label">Get In Touch</p>
+  <h2 class="section-title">Let's <span class="dim">Connect</span></h2>
+
+  <div class="contact-wrap">
+    <div class="contact-left">
+      <h3 class="contact-title">Reach Our Team</h3>
+      <p class="contact-sub">Professional help is just a call away. Our specialists are ready to assist you.</p>
+
+      <div class="contact-person">
+        <div class="person-avatar">BG</div>
+        <div>
+          <div class="person-role">Primary Lead</div>
+          <div class="person-name">Bhagavathi</div>
+          <div class="person-num">90804 88323</div>
+        </div>
+      </div>
+
+      <div class="contact-person">
+        <div class="person-avatar">PN</div>
+        <div>
+          <div class="person-role">Support Specialist</div>
+          <div class="person-name">Pandi</div>
+          <div class="person-num">88382 98741</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-right">
+      <p class="visit-label">Our Location</p>
+      <div class="visit-address">
+        <strong>1/56, New Dharapuram Road</strong><br>
+        Opposite Town Police Station,<br>
+        Near Ammu Mall,<br>
+        Palani — 624 601
+      </div>
+
+      <a href="https://maps.google.com/?q=1/56+New+Dharapuram+Road+Palani+624601" target="_blank" class="map-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Open in Google Maps
+      </a>
+      <a href="https://instagram.com/Mobile_hub.palani" target="_blank" class="ig-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        Follow @Mobile_hub.palani
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">MOBILEHUB</div>
+  <div class="footer-copy">© 2026 Mobile Hub Palani. All rights reserved.</div>
+  <div class="footer-links">
+    <a href="https://wa.me/919080488323">WhatsApp</a>
+    <a href="https://instagram.com/Mobile_hub.palani" target="_blank">Instagram</a>
+    <a href="tel:9080488323">Call</a>
+  </div>
+</footer>
+
+<script>
+const glow=document.getElementById('glow');
+document.addEventListener('mousemove',e=>{
+  glow.style.transform=`translate(${e.clientX-300}px,${e.clientY-300}px)`;
+});
+
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',window.scrollY>60);
+});
+</script>
+</body>
+</html>
